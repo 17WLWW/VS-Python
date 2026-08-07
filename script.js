@@ -57,3 +57,99 @@ if (
 
     }, 500);
 });
+
+/* =========================
+   ADJUDICATOR ACCORDION
+   ========================= */
+
+const adjudicatorItems =
+    document.querySelectorAll(".adjudicator-item");
+
+adjudicatorItems.forEach((item) => {
+
+    const toggle =
+        item.querySelector(".adjudicator-toggle");
+
+    const content =
+        item.querySelector(".adjudicator-content");
+
+    toggle.addEventListener("click", () => {
+
+        const isOpen =
+            item.classList.contains("open");
+
+
+        // Close every adjudicator
+
+        adjudicatorItems.forEach((otherItem) => {
+
+            const otherContent =
+                otherItem.querySelector(".adjudicator-content");
+
+            otherItem.classList.remove("open");
+
+            otherContent.style.maxHeight = null;
+
+        });
+
+
+        // Open the one that was clicked
+
+        if (!isOpen) {
+
+            item.classList.add("open");
+
+            content.style.maxHeight =
+                content.scrollHeight + "px";
+
+        }
+
+    });
+
+});
+const adjudicatorsCard =
+    document.getElementById("adjudicators-card");
+
+const adjudicatorsSection =
+    document.getElementById("adjudicators");
+
+const planCards =
+    document.querySelectorAll(".plan-grid .discipline-card");
+
+planCards.forEach((card) => {
+
+    card.addEventListener("click", (event) => {
+
+        // ADJUDICATORS CARD
+        if (card === adjudicatorsCard) {
+
+            event.preventDefault();
+
+            const isHidden = adjudicatorsSection.hidden;
+
+            // Close first
+            adjudicatorsSection.hidden = true;
+
+            // Toggle it back open if it was closed
+            if (isHidden) {
+
+                adjudicatorsSection.hidden = false;
+
+                setTimeout(() => {
+                    adjudicatorsSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }, 50);
+            }
+
+        }
+
+        // ANY OTHER PLAN CARD
+        else {
+            adjudicatorsSection.hidden = true;
+        }
+
+    });
+
+});
